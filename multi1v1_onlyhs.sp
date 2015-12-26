@@ -9,7 +9,7 @@
 #include <clientprefs>
 #include <multicolors>
 #include <sdkhooks>
-#include "include/multi1v1.inc"
+#include "multi1v1.inc"
 #include "multi1v1/generic.sp"
 #include "multi1v1/version.sp"
 
@@ -106,14 +106,16 @@ public void Multi1v1_AfterPlayerSetup(int client) {
     if (p1 >= 0 && p2 >= 0 && g_GiveFlash[p1] && g_GiveFlash[p2]) {
 		if(Multi1v1_GetCurrentRoundType(arena) == Multi1v1_GetRoundTypeIndex("knife")) return;
 		hs[client] = true;
-		CreateTimer(2.0, pasado, client);
+		CreateTimer(2.0, pasado, GetClientUserId(client));
 		CPrintToChat(client, " {lime}ONLY HEADSHOT ENABLED IN THIS ROUND");
     }
 }
 
-public Action:pasado(Handle:timer, any:client)
+public Action:pasado(Handle:timer, any:userid)
 {
-	if(!IsClientInGame(client)) return;
+	new client = GetClientOfUserId(userid);
+	
+	if(client == 0 || !IsClientInGame(client)) return;
 	decl String:input[512];
 	Format(input, 512, "<font color='#0066FF'>ONLY HEADSHOT ENABLED IN THIS ROUND</font>");
 	new Handle:pb = StartMessageOne("HintText", client);
