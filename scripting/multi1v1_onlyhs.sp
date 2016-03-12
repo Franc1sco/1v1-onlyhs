@@ -55,7 +55,7 @@ public Action OnTakeDamage(int victim, int &attacker, int &inflictor, float &dam
 		return Plugin_Continue;
 
 		
-	if (attacker < 0 || attacker > MaxClients || !IsClientInGame(attacker)) 
+	if (attacker < 1 || attacker > MaxClients || !IsClientInGame(attacker)) 
 		return Plugin_Continue; 
 		
 		
