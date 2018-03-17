@@ -32,7 +32,7 @@ public Plugin myinfo = {
     name = "CS:GO Multi1v1: Only HS option",
     author = "Franc1sco franug",
     description = "Adds an HS mode",
-    version = "1.2",
+    version = "1.3",
     url = "http://steamcommunity.com/id/franug"
 };
 
@@ -115,7 +115,9 @@ public void Multi1v1_AfterPlayerSetup(int client) {
     int p2 = Multi1v1_GetArenaPlayer2(arena);
 
     if (p1 >= 0 && p2 >= 0 && g_GiveFlash[p1] && g_GiveFlash[p2]) {
-		if(Multi1v1_GetCurrentRoundType(arena) == Multi1v1_GetRoundTypeIndex("knife")) return;
+    	int index = Multi1v1_GetCurrentRoundType(arena);
+    	
+		if(index == Multi1v1_GetRoundTypeIndex("knife") || index == Multi1v1_GetRoundTypeIndex("hegrenade") || index == Multi1v1_GetRoundTypeIndex("dodgeball")) return;
 		hs[client] = true;
 		CreateTimer(2.0, pasado, GetClientUserId(client));
 		CPrintToChat(client, " {lime}ONLY HEADSHOT ENABLED IN THIS ROUND");
